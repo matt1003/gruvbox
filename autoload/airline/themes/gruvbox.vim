@@ -8,17 +8,35 @@
 
 let g:airline#themes#gruvbox#palette = {}
 
+function! s:getGruvColor(group)
+  let guiColor = synIDattr(hlID(a:group), "fg", "gui")
+  let termColor = synIDattr(hlID(a:group), "fg", "cterm")
+  return [ guiColor, termColor ]
+endfunction
+
 function! airline#themes#gruvbox#refresh()
 
-  let M0 = airline#themes#get_highlight('Identifier')
-  let accents_group = airline#themes#get_highlight('Special')
-  let modified_group = [M0[0], '', M0[2], '', '']
-  let warning_group = airline#themes#get_highlight2(['Normal', 'bg'], ['Question', 'fg'])
-  let error_group = airline#themes#get_highlight2(['Normal', 'bg'], ['WarningMsg', 'fg'])
+  let s:bg0 = s:getGruvColor('GruvboxBg0')
+  let s:bg1 = s:getGruvColor('GruvboxBg1')
+  let s:bg2 = s:getGruvColor('GruvboxBg2')
+  let s:fg4 = s:getGruvColor('GruvboxFg4')
 
-  let s:N1 = airline#themes#get_highlight2(['Normal', 'bg'], ['StatusLineNC', 'bg'])
-  let s:N2 = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['StatusLineNC', 'fg'])
-  let s:N3 = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['CursorLine', 'bg'])
+  let s:normal   = s:getGruvColor('GruvboxGray')
+  let s:insert   = s:getGruvColor('GruvboxGreen')
+  let s:visual   = s:getGruvColor('GruvboxYellow')
+  let s:replace  = s:getGruvColor('GruvboxPurple')
+  let s:warning  = s:getGruvColor('GruvboxOrange')
+  let s:error    = s:getGruvColor('GruvboxRed')
+  let s:modified = s:getGruvColor('GruvboxOrange')
+
+  let accents_group = airline#themes#get_highlight('Special')
+  let modified_group = [ s:modified[0], s:bg1[0], s:modified[1], s:bg1[1], 'bold,italic' ]
+  let warning_group = [ s:bg0[0], s:warning[0], s:bg0[1], s:warning[1] ]
+  let error_group = [ s:bg0[0], s:error[0], s:bg0[1], s:error[1] ]
+
+  let s:N1 = [ s:bg0[0], s:normal[0], s:bg0[1], s:normal[1] ]
+  let s:N2 = [ s:fg4[0], s:bg2[0], s:fg4[1], s:bg2[1] ]
+  let s:N3 = [ s:fg4[0], s:bg1[0], s:fg4[1], s:bg1[1] , 'bold' ]
   let g:airline#themes#gruvbox#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
   let g:airline#themes#gruvbox#palette.normal_modified = { 'airline_c': modified_group }
   let g:airline#themes#gruvbox#palette.normal.airline_warning = warning_group
@@ -26,9 +44,9 @@ function! airline#themes#gruvbox#refresh()
   let g:airline#themes#gruvbox#palette.normal.airline_error = error_group
   let g:airline#themes#gruvbox#palette.normal_modified.airline_error = error_group
 
-  let s:I1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Identifier', 'fg'])
-  let s:I2 = s:N2
-  let s:I3 = airline#themes#get_highlight2(['Normal', 'fg'], ['StatusLineNC', 'fg'])
+  let s:I1 = [ s:bg0[0], s:insert[0], s:bg0[1], s:insert[1] ]
+  let s:I2 = [ s:insert[0], s:bg2[0], s:insert[1], s:bg2[1] ]
+  let s:I3 = [ s:insert[0], s:bg1[0], s:insert[1], s:bg1[1], 'bold' ]
   let g:airline#themes#gruvbox#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
   let g:airline#themes#gruvbox#palette.insert_modified = g:airline#themes#gruvbox#palette.normal_modified
   let g:airline#themes#gruvbox#palette.insert.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
@@ -36,9 +54,9 @@ function! airline#themes#gruvbox#refresh()
   let g:airline#themes#gruvbox#palette.insert.airline_error = g:airline#themes#gruvbox#palette.normal.airline_error
   let g:airline#themes#gruvbox#palette.insert_modified.airline_error = g:airline#themes#gruvbox#palette.normal_modified.airline_error
 
-  let s:R1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Structure', 'fg'])
-  let s:R2 = s:I2
-  let s:R3 = s:I3
+  let s:R1 = [ s:bg0[0], s:replace[0], s:bg0[1], s:replace[1] ]
+  let s:R2 = [ s:replace[0], s:bg2[0], s:replace[1], s:bg2[1] ]
+  let s:R3 = [ s:replace[0], s:bg1[0], s:replace[1], s:bg1[1], 'bold' ]
   let g:airline#themes#gruvbox#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
   let g:airline#themes#gruvbox#palette.replace_modified = g:airline#themes#gruvbox#palette.normal_modified
   let g:airline#themes#gruvbox#palette.replace.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
@@ -46,9 +64,9 @@ function! airline#themes#gruvbox#refresh()
   let g:airline#themes#gruvbox#palette.replace.airline_error = g:airline#themes#gruvbox#palette.normal.airline_error
   let g:airline#themes#gruvbox#palette.replace_modified.airline_error = g:airline#themes#gruvbox#palette.normal_modified.airline_error
 
-  let s:V1 = airline#themes#get_highlight2(['Normal', 'bg'], ['ModeMsg', 'fg'])
-  let s:V2 = s:N2
-  let s:V3 = airline#themes#get_highlight2(['Normal', 'bg'], ['TabLine', 'fg'])
+  let s:V1 = [ s:bg0[0], s:visual[0], s:bg0[1], s:visual[1] ]
+  let s:V2 = [ s:visual[0], s:bg2[0], s:visual[1], s:bg2[1] ]
+  let s:V3 = [ s:visual[0], s:bg1[0], s:visual[1], s:bg1[1], 'bold' ]
   let g:airline#themes#gruvbox#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
   let g:airline#themes#gruvbox#palette.visual_modified = { 'airline_c': [ s:V3[0], '', s:V3[2], '', '' ] }
   let g:airline#themes#gruvbox#palette.visual.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
