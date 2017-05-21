@@ -86,11 +86,7 @@ let s:is_dark=(&background == 'dark')
 let s:gb = {}
 
 " fill it with absolute colors
-if has ("gui_running")
 let s:gb.dark0_hard  = ['#1d2021', 234]     " 29-32-33
-else
-let s:gb.dark0_hard  = ['NONE',234] " 'NONE' will be used when in a terminal and termguicolors is enabled
-endif
 let s:gb.dark0       = ['#282828', 235]     " 40-40-40
 let s:gb.dark0_soft  = ['#32302f', 236]     " 50-48-47
 let s:gb.dark1       = ['#3c3836', 237]     " 60-56-54
@@ -233,6 +229,13 @@ else
   let s:orange = s:gb.faded_orange
 endif
 
+if has ("gui_running")
+  let s:bgN = s:bg0
+else
+  " set transparent background when termguicolors is enabled
+  let s:bgN = ['NONE', s:bg0[1]]
+endif
+
 " reset to 16 colors fallback
 if g:gruvbox_termcolors == 16
   let s:bg0[1]    = 0
@@ -248,6 +251,7 @@ if g:gruvbox_termcolors == 16
 endif
 
 " save current relative colors back to palette dictionary
+let s:gb.bgN = s:bgN
 let s:gb.bg0 = s:bg0
 let s:gb.bg1 = s:bg1
 let s:gb.bg2 = s:bg2
@@ -403,6 +407,7 @@ call s:HL('GruvboxFg2', s:fg2)
 call s:HL('GruvboxFg3', s:fg3)
 call s:HL('GruvboxFg4', s:fg4)
 call s:HL('GruvboxGray', s:gray)
+call s:HL('GruvboxBgN', s:bgN)
 call s:HL('GruvboxBg0', s:bg0)
 call s:HL('GruvboxBg1', s:bg1)
 call s:HL('GruvboxBg2', s:bg2)
@@ -437,7 +442,7 @@ call s:HL('GruvboxAquaSign', s:aqua, s:sign_column, s:invert_signs)
 " General UI: {{{
 
 " Normal text
-call s:HL('Normal', s:fg1, s:bg0)
+call s:HL('Normal', s:fg1, s:bgN)
 
 " Correct background (see issue #7):
 " --- Problem with changing between dark and light on 256 color terminal
