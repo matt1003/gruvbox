@@ -435,6 +435,7 @@ call s:HL('GruvboxYellowSign', s:yellow, s:sign_column, s:invert_signs)
 call s:HL('GruvboxBlueSign', s:blue, s:sign_column, s:invert_signs)
 call s:HL('GruvboxPurpleSign', s:purple, s:sign_column, s:invert_signs)
 call s:HL('GruvboxAquaSign', s:aqua, s:sign_column, s:invert_signs)
+call s:HL('GruvboxOrangeSign', s:orange, s:sign_column, s:invert_signs)
 
 " }}}
 
@@ -732,9 +733,9 @@ let g:niji_light_colours = g:rbpt_colorpairs
 " GitGutter: {{{
 
 hi! link GitGutterAdd GruvboxGreenSign
-hi! link GitGutterChange GruvboxAquaSign
+hi! link GitGutterChange GruvboxOrangeSign
 hi! link GitGutterDelete GruvboxRedSign
-hi! link GitGutterChangeDelete GruvboxAquaSign
+hi! link GitGutterChangeDelete GruvboxRedSign
 
 " }}}
 " GitCommit: "{{{
