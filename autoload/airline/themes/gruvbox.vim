@@ -3,7 +3,7 @@
 " Description: Retro groove color scheme for Airline
 " Author: morhetz <morhetz@gmail.com>
 " Source: https://github.com/morhetz/gruvbox
-" Last Modified: 22 Aug 2014
+" Last Modified: 12 Aug 2017
 " -----------------------------------------------------------------------------
 
 let g:airline#themes#gruvbox#palette = {}
