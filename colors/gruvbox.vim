@@ -149,7 +149,11 @@ if g:gruvbox_underline == 0
   let s:underline = ''
 endif
 
-let s:undercurl = 'undercurl,'
+if has('gui_running')
+  let s:undercurl = 'undercurl,'
+else
+  let s:undercurl = 'underline,'
+endif
 if g:gruvbox_undercurl == 0
   let s:undercurl = ''
 endif
