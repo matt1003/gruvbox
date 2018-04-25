@@ -692,6 +692,11 @@ if has("spell")
 endif
 
 " }}}
+" Quickfix: {{{
+
+call s:HL('QuickFixLine', s:none, s:bg1)
+
+" }}}
 
 " Plugin specific -------------------------------------------------------------
 " EasyMotion: {{{
