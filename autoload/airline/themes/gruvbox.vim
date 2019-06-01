@@ -80,14 +80,15 @@ function! airline#themes#gruvbox#refresh()
 
   let g:airline#themes#gruvbox#palette.accents = { 'red': accents_group }
 
-  let s:TF = airline#themes#get_highlight2(['Normal', 'bg'], ['Normal', 'bg'])
+  let s:TF = [ s:fg4[0], s:bg1[0], s:fg4[1], s:bg1[1] ]
+  let s:TM = [ s:bg0[0], s:modified[0], s:bg0[1], s:modified[1], 'bold,italic' ]
   let g:airline#themes#gruvbox#palette.tabline = {
     \ 'airline_tab':  s:N2,
     \ 'airline_tabsel':  s:N1,
     \ 'airline_tabtype':  s:V1,
     \ 'airline_tabfill':  s:TF,
     \ 'airline_tabhid':  s:IA,
-    \ 'airline_tabmod':  s:I1
+    \ 'airline_tabmod':  s:TM
     \ }
 
 endfunction
